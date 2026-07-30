@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { navSections, event } from '../content/conference'
+import { useOverlay } from '../hooks/useOverlay'
 
 /**
  * Full-screen navigation overlay. Always ink-on-white regardless of the
@@ -11,22 +12,7 @@ import { navSections, event } from '../content/conference'
 export function MenuOverlay({ open, onClose }) {
   const firstLinkRef = useRef(null)
 
-  useEffect(() => {
-    if (!open) return undefined
-
-    const onKeyDown = (keyEvent) => {
-      if (keyEvent.key === 'Escape') onClose()
-    }
-
-    document.addEventListener('keydown', onKeyDown)
-    document.body.style.overflow = 'hidden'
-    firstLinkRef.current?.focus()
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-      document.body.style.overflow = ''
-    }
-  }, [open, onClose])
+  useOverlay(open, onClose, firstLinkRef)
 
   if (!open) return null
 

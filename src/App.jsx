@@ -5,6 +5,7 @@ import { Cursor } from './components/Cursor'
 import { NavFrame } from './components/NavFrame'
 import { Hero } from './components/Hero'
 import { AgendaBlock } from './components/AgendaBlock'
+import { Speakers } from './components/Speakers'
 
 export default function App() {
   const reducedMotion = useReducedMotion()
@@ -20,7 +21,8 @@ export default function App() {
       <main>
         <Hero />
         <AgendaBlock />
-        {/* Sections D–J land here, one piece at a time. */}
+        <Speakers />
+        {/* Sections E–J land here, one piece at a time. */}
       </main>
     </>
   )

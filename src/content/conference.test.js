@@ -12,6 +12,25 @@ describe('event', () => {
   })
 })
 
+describe('images', () => {
+  it('never points at a remote placeholder service', () => {
+    // A blocked or down remote placeholder renders as a broken image, which
+    // the browser draws with its own border. Everything ships as a data URI.
+    const sources = [
+      ...speakers.map((speaker) => speaker.image),
+      ...agenda.segments.filter((segment) => segment.media).map((segment) => segment.media.src),
+      ...partners.hosts.map((host) => host.logo),
+      ...partners.sponsors.map((sponsor) => sponsor.logo),
+      ...gallery.map((image) => image.src),
+    ]
+
+    expect(sources.length).toBeGreaterThan(0)
+    for (const src of sources) {
+      expect(src.startsWith('data:image/svg+xml,')).toBe(true)
+    }
+  })
+})
+
 describe('collections', () => {
   it('gives every entry a unique id', () => {
     const groups = [speakers, tiers, faq, gallery, partners.hosts, partners.sponsors]

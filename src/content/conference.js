@@ -3,7 +3,10 @@
  * Next year's host committee edits this file — not the components.
  *
  * Placeholder values are marked TODO. Swap them, don't restructure them.
+ * Images use `placeholderImage(...)`; replace a call with a URL string to drop
+ * in the real photo.
  */
+import { placeholderImage } from '../lib/placeholder'
 
 export const event = {
   name: 'EAST COAST SSA CONFERENCE',
@@ -74,17 +77,17 @@ export const agenda = {
     { text: 'Two hundred students from every SSA between Boston and Washington arrive on a Friday night. By Saturday evening the same room has sat through ' },
     {
       keyword: 'kirtan',
-      media: { src: 'https://placehold.co/320x200/1b3a6b/E5E5E5?text=Kirtan', alt: 'Students playing kirtan at a past conference' },
+      media: { src: placeholderImage('Kirtan', { width: 320, height: 200, bg: '#1b3a6b', fg: '#E5E5E5' }), alt: 'Students playing kirtan at a past conference' },
     },
     { text: ', argued about ' },
     {
       keyword: 'history',
-      media: { src: 'https://placehold.co/320x200/222222/E5E5E5?text=History', alt: 'A panel discussion in session' },
+      media: { src: placeholderImage('History', { width: 320, height: 200, bg: '#222222', fg: '#E5E5E5' }), alt: 'A panel discussion in session' },
     },
     { text: ', cooked and served ' },
     {
       keyword: 'langar',
-      media: { src: 'https://placehold.co/320x200/333333/E5E5E5?text=Langar', alt: 'Langar being served in the dining hall' },
+      media: { src: placeholderImage('Langar', { width: 320, height: 200, bg: '#333333', fg: '#E5E5E5' }), alt: 'Langar being served in the dining hall' },
     },
     { text: ', and traded the specific problem of keeping a chapter alive on a campus of thirty Sikhs. That is the whole idea.' },
   ],
@@ -100,7 +103,7 @@ export const speakers = [
     org: 'Columbia University',
     badge: 'S/',
     bio: 'Placeholder bio. Writes on Sikh historiography and the diaspora archive, and teaches a seminar on memory and partition.',
-    image: 'https://placehold.co/800x1100/111111/E5E5E5?text=Speaker+01',
+    image: placeholderImage('Speaker 01', { width: 800, height: 1100, bg: '#111111', fg: '#E5E5E5' }),
   },
   {
     id: 'sp-2',
@@ -109,7 +112,7 @@ export const speakers = [
     org: 'Sikh Coalition',
     badge: 'S/',
     bio: 'Placeholder bio. Litigates religious accommodation cases and advises campus groups on advocacy.',
-    image: 'https://placehold.co/800x1100/111111/E5E5E5?text=Speaker+02',
+    image: placeholderImage('Speaker 02', { width: 800, height: 1100, bg: '#111111', fg: '#E5E5E5' }),
   },
   {
     id: 'sp-3',
@@ -118,7 +121,7 @@ export const speakers = [
     org: 'Independent',
     badge: 'K/',
     bio: 'Placeholder bio. Teaches raag-based kirtan and runs an annual student intensive.',
-    image: 'https://placehold.co/800x1100/111111/E5E5E5?text=Speaker+03',
+    image: placeholderImage('Speaker 03', { width: 800, height: 1100, bg: '#111111', fg: '#E5E5E5' }),
   },
   {
     id: 'sp-4',
@@ -127,7 +130,7 @@ export const speakers = [
     org: 'Seva Initiative',
     badge: 'F/',
     bio: 'Placeholder bio. Built a student-run mutual aid network across six campuses.',
-    image: 'https://placehold.co/800x1100/111111/E5E5E5?text=Speaker+04',
+    image: placeholderImage('Speaker 04', { width: 800, height: 1100, bg: '#111111', fg: '#E5E5E5' }),
   },
   {
     id: 'sp-5',
@@ -136,7 +139,7 @@ export const speakers = [
     org: 'Yale School of Medicine',
     badge: 'D/',
     bio: 'Placeholder bio. Researches health equity in South Asian immigrant communities.',
-    image: 'https://placehold.co/800x1100/111111/E5E5E5?text=Speaker+05',
+    image: placeholderImage('Speaker 05', { width: 800, height: 1100, bg: '#111111', fg: '#E5E5E5' }),
   },
   {
     id: 'sp-6',
@@ -145,7 +148,7 @@ export const speakers = [
     org: 'Independent',
     badge: 'V/',
     bio: 'Placeholder bio. Films oral histories of gurdwaras across the Northeast.',
-    image: 'https://placehold.co/800x1100/111111/E5E5E5?text=Speaker+06',
+    image: placeholderImage('Speaker 06', { width: 800, height: 1100, bg: '#111111', fg: '#E5E5E5' }),
   },
 ]
 
@@ -211,18 +214,18 @@ export const tiers = [
 // TODO: swap placeholders for real host-school and sponsor marks.
 export const partners = {
   hosts: [
-    { id: 'columbia', name: 'Columbia SSA', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Columbia' },
-    { id: 'penn', name: 'Penn SSA', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Penn' },
-    { id: 'cornell', name: 'Cornell SSA', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Cornell' },
-    { id: 'princeton', name: 'Princeton SSA', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Princeton' },
-    { id: 'yale', name: 'Yale SSA', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Yale' },
-    { id: 'harvard', name: 'Harvard SSA', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Harvard' },
+    { id: 'columbia', name: 'Columbia SSA', logo: placeholderImage('Columbia', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'penn', name: 'Penn SSA', logo: placeholderImage('Penn', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'cornell', name: 'Cornell SSA', logo: placeholderImage('Cornell', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'princeton', name: 'Princeton SSA', logo: placeholderImage('Princeton', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'yale', name: 'Yale SSA', logo: placeholderImage('Yale', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'harvard', name: 'Harvard SSA', logo: placeholderImage('Harvard', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
   ],
   sponsors: [
-    { id: 'sponsor-1', name: 'Sponsor One', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Sponsor+01' },
-    { id: 'sponsor-2', name: 'Sponsor Two', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Sponsor+02' },
-    { id: 'sponsor-3', name: 'Sponsor Three', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Sponsor+03' },
-    { id: 'sponsor-4', name: 'Sponsor Four', logo: 'https://placehold.co/320x140/E5E5E5/111111?text=Sponsor+04' },
+    { id: 'sponsor-1', name: 'Sponsor One', logo: placeholderImage('Sponsor 01', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'sponsor-2', name: 'Sponsor Two', logo: placeholderImage('Sponsor 02', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'sponsor-3', name: 'Sponsor Three', logo: placeholderImage('Sponsor 03', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'sponsor-4', name: 'Sponsor Four', logo: placeholderImage('Sponsor 04', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
   ],
 }
 
@@ -261,10 +264,10 @@ export const faq = [
 
 // TODO: swap for real photos from prior conferences.
 export const gallery = [
-  { id: 'g1', alt: 'Attendees in the main auditorium', src: 'https://placehold.co/800x1000/111111/888888?text=2026' },
-  { id: 'g2', alt: 'Langar seva', src: 'https://placehold.co/800x600/111111/888888?text=2026' },
-  { id: 'g3', alt: 'Kirtan darbar', src: 'https://placehold.co/800x900/111111/888888?text=2025' },
-  { id: 'g4', alt: 'Breakout session', src: 'https://placehold.co/800x700/111111/888888?text=2025' },
-  { id: 'g5', alt: 'Group photo on the quad', src: 'https://placehold.co/800x1100/111111/888888?text=2024' },
-  { id: 'g6', alt: 'Evening mixer', src: 'https://placehold.co/800x800/111111/888888?text=2024' },
+  { id: 'g1', alt: 'Attendees in the main auditorium', src: placeholderImage('2026', { width: 800, height: 1000, bg: '#111111', fg: '#888888' }) },
+  { id: 'g2', alt: 'Langar seva', src: placeholderImage('2026', { width: 800, height: 600, bg: '#111111', fg: '#888888' }) },
+  { id: 'g3', alt: 'Kirtan darbar', src: placeholderImage('2025', { width: 800, height: 900, bg: '#111111', fg: '#888888' }) },
+  { id: 'g4', alt: 'Breakout session', src: placeholderImage('2025', { width: 800, height: 700, bg: '#111111', fg: '#888888' }) },
+  { id: 'g5', alt: 'Group photo on the quad', src: placeholderImage('2024', { width: 800, height: 1100, bg: '#111111', fg: '#888888' }) },
+  { id: 'g6', alt: 'Evening mixer', src: placeholderImage('2024', { width: 800, height: 800, bg: '#111111', fg: '#888888' }) },
 ]
