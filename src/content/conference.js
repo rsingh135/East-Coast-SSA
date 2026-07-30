@@ -6,9 +6,9 @@
  */
 
 export const event = {
-  name: 'East Coast SSA Conference',
+  name: 'EAST COAST SSA CONFERENCE',
   // Rendered as two oversized display lines in the hero.
-  wordmarkLines: ['East Coast', 'SSA Conference'],
+  wordmarkLines: ['EAST COAST', 'SSA CONFERENCE'],
   shortName: 'EC SSA',
   tagline: 'One weekend. Every East Coast sangat. One table.',
   // TODO: replace once the rotating host school is confirmed.

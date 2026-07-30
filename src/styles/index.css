@@ -1,7 +1,20 @@
-@import '@fontsource-variable/syne';
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/jetbrains-mono';
 @import 'tailwindcss';
+
+/* Satoshi is Fontshare-only — no npm package — so the variable file is
+   vendored in src/assets/fonts. One file covers weights 300–900.
+   See src/assets/fonts/README.md for source and licence. */
+@font-face {
+  font-family: 'Satoshi';
+  /* Plain `woff2`, not `woff2-variations`: the legacy format string is skipped
+     outright by browsers that don't know it, and a variable woff2 loads fine
+     under the standard one. */
+  src: url('../assets/fonts/satoshi-variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --color-ink: #000000;
@@ -12,14 +25,18 @@
   --color-accent-deep: #1b3a6b;
   --color-accent-bright: #3d6fd4;
 
-  --font-display: 'Syne Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
 
-  /* Fluid display scale — no breakpoint jumps between phone and ultrawide. */
-  --text-display-sm: clamp(2rem, 6vw, 4rem);
-  --text-display: clamp(2.75rem, 11vw, 9rem);
-  --text-display-lg: clamp(3.25rem, 15vw, 14rem);
+  /* Fluid display scale — no breakpoint jumps between phone and ultrawide.
+     Ceilings are deliberately modest: the hero line "SSA Conference" is 14
+     characters, and anything past ~7vw overruns the viewport on a laptop. */
+  --text-display-sm: clamp(1.75rem, 4.5vw, 3rem);
+  --text-display: clamp(2rem, 5.5vw, 4.25rem);
+  /* Floor is sized so the longest wordmark line ("SSA Conference", ~7.5em in
+     Syne) still fits a 320px viewport without wrapping. */
+  --text-hero: clamp(2rem, 7vw, 6rem);
 
   /* Height of the fixed nav bars, so sections can offset against them. */
   --frame-bar: 3.5rem;
@@ -64,12 +81,13 @@
     text-transform: uppercase;
   }
 
+  /* Case is left to the caller — add `uppercase` where a label needs shouting.
+     Line height stays under 1 so stacked display lines read as one block. */
   .display {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.86;
-    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
   }
 
   /* Wraps a line of display type so it can slide up out of a hard mask. */

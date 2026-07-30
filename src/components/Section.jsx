@@ -4,12 +4,13 @@
  *   data-bg    — "ink" (black) or "paper" (light), drives frame inversion
  *   data-frame — key into `frameLabels`, drives the bottom-right nav slot
  */
-export function Section({ id, bg = 'ink', frame, className = '', children, ...rest }) {
+export function Section({ id, bg = 'ink', frame, className = '', ref, children, ...rest }) {
   const isInk = bg === 'ink'
 
   return (
     <section
       id={id}
+      ref={ref}
       data-bg={bg}
       data-frame={frame ?? id}
       className={`relative w-full ${isInk ? 'bg-ink text-white' : 'bg-paper text-near-black'} ${className}`}
