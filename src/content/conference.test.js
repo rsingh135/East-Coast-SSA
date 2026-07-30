@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { event, frameLabels, navSections, speakers, schedule, tiers, partners, faq, gallery } from './conference'
+import { agenda, event, frameLabels, navSections, speakers, schedule, tiers, partners, faq, gallery } from './conference'
 
 // The content file is edited by non-engineers every year. These tests catch a
 // broken shape before it reaches a component that silently renders nothing.
@@ -38,6 +38,28 @@ describe('collections', () => {
 
   it('gives every gallery image alt text', () => {
     for (const image of gallery) expect(image.alt).toBeTruthy()
+  })
+})
+
+describe('agenda', () => {
+  it('gives every segment either copy or a keyword, never both and never neither', () => {
+    for (const segment of agenda.segments) {
+      expect(Boolean(segment.text) !== Boolean(segment.keyword)).toBe(true)
+    }
+  })
+
+  it('pairs every keyword with a captioned thumbnail', () => {
+    const keywords = agenda.segments.filter((segment) => segment.keyword)
+    expect(keywords.length).toBeGreaterThan(0)
+    for (const segment of keywords) {
+      expect(segment.media?.src).toBeTruthy()
+      expect(segment.media?.alt).toBeTruthy()
+    }
+  })
+
+  it('keeps keywords unique, since each one keys a badge', () => {
+    const keywords = agenda.segments.filter((segment) => segment.keyword).map((segment) => segment.keyword)
+    expect(new Set(keywords).size).toBe(keywords.length)
   })
 })
 

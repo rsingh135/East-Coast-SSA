@@ -58,6 +58,39 @@ export const frameLabels = {
   gallery: 'Archive',
 }
 
+/**
+ * The opening statement, written as a sequence of segments so a few phrases can
+ * carry a media thumbnail that appears on hover.
+ *
+ * `{ text }`  — plain copy.
+ * `{ keyword, media }` — emphasised phrase; `media` shows above it on hover.
+ *
+ * To edit the copy, edit the strings. To move a thumbnail, move the `media` key
+ * to a different segment. TODO: swap the placeholder thumbnails for real photos.
+ */
+export const agenda = {
+  eyebrow: 'The weekend',
+  segments: [
+    { text: 'Two hundred students from every SSA between Boston and Washington arrive on a Friday night. By Saturday evening the same room has sat through ' },
+    {
+      keyword: 'kirtan',
+      media: { src: 'https://placehold.co/320x200/1b3a6b/E5E5E5?text=Kirtan', alt: 'Students playing kirtan at a past conference' },
+    },
+    { text: ', argued about ' },
+    {
+      keyword: 'history',
+      media: { src: 'https://placehold.co/320x200/222222/E5E5E5?text=History', alt: 'A panel discussion in session' },
+    },
+    { text: ', cooked and served ' },
+    {
+      keyword: 'langar',
+      media: { src: 'https://placehold.co/320x200/333333/E5E5E5?text=Langar', alt: 'Langar being served in the dining hall' },
+    },
+    { text: ', and traded the specific problem of keeping a chapter alive on a campus of thirty Sikhs. That is the whole idea.' },
+  ],
+  cue: 'Meet the speakers',
+}
+
 // TODO: replace with the confirmed lineup. `image` accepts any URL.
 export const speakers = [
   {

@@ -4,6 +4,7 @@ import { useSectionFrame } from './hooks/useSectionFrame'
 import { Cursor } from './components/Cursor'
 import { NavFrame } from './components/NavFrame'
 import { Hero } from './components/Hero'
+import { AgendaBlock } from './components/AgendaBlock'
 
 export default function App() {
   const reducedMotion = useReducedMotion()
@@ -18,7 +19,8 @@ export default function App() {
 
       <main>
         <Hero />
-        {/* Sections C–J land here, one piece at a time. */}
+        <AgendaBlock />
+        {/* Sections D–J land here, one piece at a time. */}
       </main>
     </>
   )
