@@ -1,0 +1,50 @@
+import { describe, it, expect } from 'vitest'
+import { event, frameLabels, speakers, schedule, tiers, partners, faq, gallery } from './conference'
+
+// The content file is edited by non-engineers every year. These tests catch a
+// broken shape before it reaches a component that silently renders nothing.
+
+describe('event', () => {
+  it('exposes the fields the hero and nav frame read', () => {
+    expect(event.wordmarkLines).toHaveLength(2)
+    expect(event.datePill).toMatch(/^\d{2}\/\d{2}\.\d{2}$/)
+    expect(event.registerUrl).toBeTruthy()
+  })
+})
+
+describe('collections', () => {
+  it('gives every entry a unique id', () => {
+    const groups = [speakers, tiers, faq, gallery, partners.hosts, partners.sponsors]
+    for (const group of groups) {
+      const ids = group.map((entry) => entry.id)
+      expect(new Set(ids).size).toBe(ids.length)
+    }
+  })
+
+  it('keeps both schedule days populated and ordered by day', () => {
+    expect(schedule.friday.items.length).toBeGreaterThan(0)
+    expect(schedule.saturday.items.length).toBeGreaterThan(schedule.friday.items.length)
+    for (const day of [schedule.friday, schedule.saturday]) {
+      for (const item of day.items) {
+        expect(item.time).toMatch(/^\d{1,2}:\d{2} (AM|PM)$/)
+        expect(item.title).toBeTruthy()
+      }
+    }
+  })
+
+  it('marks exactly one featured tier', () => {
+    expect(tiers.filter((tier) => tier.featured)).toHaveLength(1)
+  })
+
+  it('gives every gallery image alt text', () => {
+    for (const image of gallery) expect(image.alt).toBeTruthy()
+  })
+})
+
+describe('frameLabels', () => {
+  it('covers every section the nav frame can land on', () => {
+    for (const key of ['hero', 'agenda', 'speakers', 'schedule', 'partners', 'register', 'faq', 'gallery']) {
+      expect(frameLabels[key]).toBeTruthy()
+    }
+  })
+})

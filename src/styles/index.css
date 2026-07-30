@@ -1,0 +1,99 @@
+@import '@fontsource-variable/syne';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #000000;
+  --color-paper: #e5e5e5;
+  --color-near-black: #111111;
+  --color-muted: #888888;
+  /* Nihang blue, two tints of one hue: deep reads on paper, bright reads on ink. */
+  --color-accent-deep: #1b3a6b;
+  --color-accent-bright: #3d6fd4;
+
+  --font-display: 'Syne Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  /* Fluid display scale — no breakpoint jumps between phone and ultrawide. */
+  --text-display-sm: clamp(2rem, 6vw, 4rem);
+  --text-display: clamp(2.75rem, 11vw, 9rem);
+  --text-display-lg: clamp(3.25rem, 15vw, 14rem);
+
+  /* Height of the fixed nav bars, so sections can offset against them. */
+  --frame-bar: 3.5rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-bright);
+    color: var(--color-white);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-bright);
+    outline-offset: 3px;
+  }
+
+  [data-bg='paper'] :focus-visible {
+    outline-color: var(--color-accent-deep);
+  }
+}
+
+@layer components {
+  /* Uppercase tracked mono, used for every label, badge and metadata line. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.86;
+    text-transform: uppercase;
+  }
+
+  /* Wraps a line of display type so it can slide up out of a hard mask. */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+  }
+}
+
+/* Custom cursor replaces the native one only where a real pointer exists. */
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
