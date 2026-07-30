@@ -29,6 +29,21 @@ export const event = {
 }
 
 /**
+ * Order of the page, and the menu overlay's link list. Each `id` must match a
+ * section id on the page and a key in `frameLabels`.
+ */
+export const navSections = [
+  { id: 'hero', label: 'Top' },
+  { id: 'agenda', label: 'The Weekend' },
+  { id: 'speakers', label: 'Speakers' },
+  { id: 'schedule', label: 'Schedule' },
+  { id: 'partners', label: 'Partners' },
+  { id: 'register', label: 'Register' },
+  { id: 'faq', label: 'FAQ' },
+  { id: 'gallery', label: 'Archive' },
+]
+
+/**
  * Labels for the bottom-right slot of the nav frame. The frame swaps these
  * as each section scrolls into view.
  */

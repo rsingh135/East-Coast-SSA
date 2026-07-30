@@ -11,7 +11,9 @@ export function useLenis(enabled = true) {
   useEffect(() => {
     if (!enabled) return undefined
 
-    const lenis = new Lenis({ duration: 1.1, smoothWheel: true })
+    // `anchors` lets plain <a href="#id"> links in the nav scroll smoothly
+    // without any component needing a handle on the Lenis instance.
+    const lenis = new Lenis({ duration: 1.1, smoothWheel: true, anchors: true })
 
     const raf = (time) => lenis.raf(time * 1000)
     lenis.on('scroll', ScrollTrigger.update)

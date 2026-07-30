@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { event, frameLabels, speakers, schedule, tiers, partners, faq, gallery } from './conference'
+import { event, frameLabels, navSections, speakers, schedule, tiers, partners, faq, gallery } from './conference'
 
 // The content file is edited by non-engineers every year. These tests catch a
 // broken shape before it reaches a component that silently renders nothing.
@@ -41,10 +41,15 @@ describe('collections', () => {
   })
 })
 
-describe('frameLabels', () => {
-  it('covers every section the nav frame can land on', () => {
-    for (const key of ['hero', 'agenda', 'speakers', 'schedule', 'partners', 'register', 'faq', 'gallery']) {
-      expect(frameLabels[key]).toBeTruthy()
+describe('navigation', () => {
+  it('gives every nav section a frame label', () => {
+    for (const section of navSections) {
+      expect(frameLabels[section.id]).toBeTruthy()
     }
+  })
+
+  it('keeps nav ids unique', () => {
+    const ids = navSections.map((section) => section.id)
+    expect(new Set(ids).size).toBe(ids.length)
   })
 })
