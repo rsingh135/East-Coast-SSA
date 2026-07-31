@@ -210,18 +210,18 @@ export const registration = {
 // TODO: swap placeholders for real host-school and sponsor marks.
 export const partners = {
   hosts: [
-    { id: 'columbia', name: 'Columbia SSA', logo: placeholderImage('Columbia', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'penn', name: 'Penn SSA', logo: placeholderImage('Penn', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'cornell', name: 'Cornell SSA', logo: placeholderImage('Cornell', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'princeton', name: 'Princeton SSA', logo: placeholderImage('Princeton', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'yale', name: 'Yale SSA', logo: placeholderImage('Yale', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'harvard', name: 'Harvard SSA', logo: placeholderImage('Harvard', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'columbia', name: 'Columbia SSA', logo: placeholderImage('Columbia', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'penn', name: 'Penn SSA', logo: placeholderImage('Penn', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'cornell', name: 'Cornell SSA', logo: placeholderImage('Cornell', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'princeton', name: 'Princeton SSA', logo: placeholderImage('Princeton', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'yale', name: 'Yale SSA', logo: placeholderImage('Yale', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'harvard', name: 'Harvard SSA', logo: placeholderImage('Harvard', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
   ],
   sponsors: [
-    { id: 'sponsor-1', name: 'Sponsor One', logo: placeholderImage('Sponsor 01', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'sponsor-2', name: 'Sponsor Two', logo: placeholderImage('Sponsor 02', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'sponsor-3', name: 'Sponsor Three', logo: placeholderImage('Sponsor 03', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
-    { id: 'sponsor-4', name: 'Sponsor Four', logo: placeholderImage('Sponsor 04', { width: 320, height: 140, bg: '#E5E5E5', fg: '#111111' }) },
+    { id: 'sponsor-1', name: 'Sponsor One', logo: placeholderImage('Sponsor 01', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'sponsor-2', name: 'Sponsor Two', logo: placeholderImage('Sponsor 02', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'sponsor-3', name: 'Sponsor Three', logo: placeholderImage('Sponsor 03', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
+    { id: 'sponsor-4', name: 'Sponsor Four', logo: placeholderImage('Sponsor 04', { width: 320, height: 140, bg: '#0d0d0d', fg: '#9a9a9a' }) },
   ],
 }
 

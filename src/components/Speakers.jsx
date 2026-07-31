@@ -102,7 +102,7 @@ export function Speakers() {
   return (
     <Section
       id="speakers"
-      bg="paper"
+      bg="ink"
       frame="speakers"
       ref={rootRef}
       className="flex min-h-svh items-center px-4 py-[calc(var(--frame-bar)+4rem)] md:px-8"
@@ -112,13 +112,13 @@ export function Speakers() {
       <div className="grid w-full grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:gap-14">
         {/* Left: who is currently selected. */}
         <div data-speakers-reveal className="flex flex-col gap-6 opacity-0">
-          <p className="label text-near-black/50">Speakers</p>
+          <p className="label text-muted">Speakers</p>
 
           {/* The live region is the stable wrapper — a region that is itself
               replaced on every change never gets announced. */}
           <div ref={detailsRef} aria-live="polite" data-testid="speaker-details">
             <span className="line-mask">
-              <span data-speaker-line className="display block text-display text-near-black/15">
+              <span data-speaker-line className="display block text-display text-white/10">
                 {pad(index + 1)}
               </span>
             </span>
@@ -132,13 +132,13 @@ export function Speakers() {
             </h2>
 
             <span className="line-mask mt-4">
-              <span data-speaker-line className="label block text-near-black/60">
+              <span data-speaker-line className="label block text-muted">
                 {active.org ? `${active.role} · ${active.org}` : active.role}
               </span>
             </span>
 
             {active.bio ? (
-              <p data-speaker-fade className="mt-6 max-w-prose leading-relaxed font-light text-near-black/70">
+              <p data-speaker-fade className="mt-6 max-w-prose leading-relaxed font-light text-white/70">
                 {active.bio}
               </p>
             ) : null}
@@ -149,7 +149,7 @@ export function Speakers() {
               type="button"
               onClick={() => go(-1)}
               aria-label="Previous speaker"
-              className="label flex size-12 items-center justify-center rounded-full border border-near-black/25 transition-colors duration-300 hover:border-accent-deep hover:text-accent-deep"
+              className="label flex size-12 items-center justify-center rounded-full border border-white/25 transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright"
             >
               <span aria-hidden="true">←</span>
             </button>
@@ -157,11 +157,11 @@ export function Speakers() {
               type="button"
               onClick={() => go(1)}
               aria-label="Next speaker"
-              className="label flex size-12 items-center justify-center rounded-full border border-near-black/25 transition-colors duration-300 hover:border-accent-deep hover:text-accent-deep"
+              className="label flex size-12 items-center justify-center rounded-full border border-white/25 transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright"
             >
               <span aria-hidden="true">→</span>
             </button>
-            <p className="label text-near-black/50" data-testid="speaker-counter">
+            <p className="label text-muted" data-testid="speaker-counter">
               {pad(index + 1)} / {pad(cards.length)}
             </p>
           </div>
@@ -189,10 +189,10 @@ export function Speakers() {
                 data-testid={`speaker-card-${card.id}`}
                 // flex-grow is the whole animation: 8 for the open card, 1 for a sliver.
                 style={{ flexGrow: isActive ? 8 : 1 }}
-                className="group relative min-w-0 flex-1 basis-0 overflow-hidden rounded-2xl bg-near-black/10 transition-[flex-grow] duration-700 ease-out"
+                className="group relative min-w-0 flex-1 basis-0 overflow-hidden rounded-2xl bg-white/5 transition-[flex-grow] duration-700 ease-out"
               >
                 {card.pending ? (
-                  <span className="label absolute inset-0 flex items-center justify-center px-2 text-center text-near-black/50">
+                  <span className="label absolute inset-0 flex items-center justify-center px-2 text-center text-muted">
                     {isActive ? card.name : '+'}
                   </span>
                 ) : (
@@ -204,9 +204,10 @@ export function Speakers() {
                   />
                 )}
 
-                {/* Badge overlaps the top-left corner of the open card only. */}
+                {/* Badge overlaps the top-left corner of the open card only.
+                    White on the dark portrait, so it still reads as a mark. */}
                 {isActive ? (
-                  <span className="label absolute top-3 left-3 flex size-14 items-center justify-center rounded-full bg-ink text-white">
+                  <span className="label absolute top-3 left-3 flex size-14 items-center justify-center rounded-full bg-white text-ink">
                     {card.badge}
                   </span>
                 ) : null}
@@ -223,7 +224,7 @@ export function Speakers() {
           type="button"
           onClick={() => setExpanded(true)}
           aria-label={`Expand ${active.name}'s profile`}
-          className="label absolute bottom-[calc(var(--frame-bar)+1.5rem)] left-4 flex items-center gap-3 rounded-full border border-near-black/25 bg-paper/80 py-3 pr-4 pl-5 backdrop-blur transition-colors duration-300 hover:border-accent-deep hover:text-accent-deep md:left-8"
+          className="label absolute bottom-[calc(var(--frame-bar)+1.5rem)] left-4 flex items-center gap-3 rounded-full border border-white/25 bg-ink/80 py-3 pr-4 pl-5 backdrop-blur transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright md:left-8"
         >
           Expand
           <span aria-hidden="true">↖</span>

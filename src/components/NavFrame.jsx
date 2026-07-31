@@ -48,8 +48,11 @@ export function NavFrame({ frameKey = 'hero', theme = 'ink' }) {
         </a>
       </header>
 
-      <footer
+      {/* A div, not a <footer>: the page's real footer owns the contentinfo
+          landmark, and two of them would be ambiguous. This is a status strip. */}
+      <div
         data-theme={theme}
+        data-testid="frame-bottom"
         className={`pointer-events-none fixed inset-x-0 bottom-0 z-100 flex h-[var(--frame-bar)] items-center justify-between border-t px-4 transition-colors duration-500 md:px-6 ${barText} ${rule}`}
       >
         <a
@@ -67,7 +70,7 @@ export function NavFrame({ frameKey = 'hero', theme = 'ink' }) {
         <span className="label text-right" aria-live="polite" data-testid="frame-status">
           {frameLabels[frameKey] ?? frameLabels.hero}
         </span>
-      </footer>
+      </div>
     </>
   )
 }

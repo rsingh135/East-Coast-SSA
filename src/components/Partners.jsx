@@ -17,15 +17,17 @@ function PartnerCard({ partner }) {
       data-partner-card
       data-testid={`partner-${partner.id}`}
       {...(isLink ? { href: partner.url, target: '_blank', rel: 'noopener noreferrer' } : {})}
-      className={`group flex items-center justify-center rounded-2xl border border-near-black/10 bg-white/70 px-6 py-8 opacity-0 transition duration-500 ease-out ${
-        isLink ? 'hover:-translate-y-1 hover:border-accent-deep/40 hover:bg-white hover:shadow-lg' : ''
+      className={`group flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-8 opacity-0 transition duration-500 ease-out ${
+        isLink ? 'hover:-translate-y-1 hover:border-accent-bright/40 hover:bg-white/10' : ''
       }`}
     >
+      {/* No blend mode: multiply was there to sink dark logos into a light
+          card, and on a dark card it would erase them. */}
       <img
         src={partner.logo}
         alt={partner.name}
         loading="lazy"
-        className="h-10 w-auto max-w-full object-contain opacity-70 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-100"
+        className="h-10 w-auto max-w-full object-contain opacity-60 transition-opacity duration-500 group-hover:opacity-100"
       />
     </Tag>
   )
@@ -34,7 +36,7 @@ function PartnerCard({ partner }) {
 function PartnerGroup({ title, items, columns }) {
   return (
     <div>
-      <h3 className="label text-near-black/50">{title}</h3>
+      <h3 className="label text-muted">{title}</h3>
       <div className={`mt-6 grid grid-cols-2 gap-3 md:gap-4 ${columns}`}>
         {items.map((partner) => (
           <PartnerCard key={partner.id} partner={partner} />
@@ -45,7 +47,7 @@ function PartnerGroup({ title, items, columns }) {
 }
 
 /**
- * Host chapters and sponsors, on the light half of the page.
+ * Host chapters and sponsors.
  */
 export function Partners() {
   const rootRef = useRef(null)
@@ -76,7 +78,7 @@ export function Partners() {
   return (
     <Section
       id="partners"
-      bg="paper"
+      bg="ink"
       frame="partners"
       ref={rootRef}
       className="px-4 py-[calc(var(--frame-bar)+5rem)] md:px-8"
@@ -84,14 +86,14 @@ export function Partners() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div data-partners-reveal className="opacity-0">
-            <p className="label text-near-black/50">Partners</p>
+            <p className="label text-muted">Partners</p>
             <h2 className="display mt-4 max-w-2xl text-display">{event.hostLine}</h2>
           </div>
 
           <a
             data-partners-reveal
             href={`mailto:${event.email}?subject=Sponsoring%20${encodeURIComponent(event.name)}`}
-            className="label group flex w-fit items-center gap-3 rounded-full border border-near-black/25 py-3 pr-4 pl-5 opacity-0 transition-colors duration-300 hover:border-accent-deep hover:text-accent-deep"
+            className="label group flex w-fit items-center gap-3 rounded-full border border-white/25 py-3 pr-4 pl-5 opacity-0 transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright"
           >
             Become a sponsor
             <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
@@ -109,7 +111,7 @@ export function Partners() {
       {/* Persistent badge, matching the circular marks on the speaker cards. */}
       <span
         aria-hidden="true"
-        className="label pointer-events-none absolute right-4 bottom-[calc(var(--frame-bar)+1.5rem)] flex size-16 items-center justify-center rounded-full bg-ink text-white md:right-8"
+        className="label pointer-events-none absolute right-4 bottom-[calc(var(--frame-bar)+1.5rem)] flex size-16 items-center justify-center rounded-full bg-white text-ink md:right-8"
       >
         {event.shortName.split(' ')[0]}.
       </span>

@@ -9,6 +9,9 @@ import { Speakers } from './components/Speakers'
 import { Schedule } from './components/Schedule'
 import { Partners } from './components/Partners'
 import { Register } from './components/Register'
+import { Faq } from './components/Faq'
+import { Gallery } from './components/Gallery'
+import { Footer } from './components/Footer'
 
 export default function App() {
   const reducedMotion = useReducedMotion()
@@ -28,8 +31,11 @@ export default function App() {
         <Schedule />
         <Partners />
         <Register />
-        {/* Sections H–J land here, one piece at a time. */}
+        <Faq />
+        <Gallery />
       </main>
+
+      <Footer />
     </>
   )
 }
