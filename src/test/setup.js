@@ -17,11 +17,33 @@ if (!window.matchMedia) {
   })
 }
 
+// Mirrors the real thing closely enough to matter: a live ResizeObserver
+// invokes its callback once as soon as observe() is called, which is easy to
+// mistake for a genuine resize. Instances are exposed so tests can fire later
+// callbacks by hand.
 if (!global.ResizeObserver) {
+  global.resizeObserverInstances = []
+
   global.ResizeObserver = class {
-    observe() {}
+    constructor(callback) {
+      this.callback = callback
+      global.resizeObserverInstances.push(this)
+    }
+
+    observe() {
+      this.callback([], this)
+    }
+
     unobserve() {}
-    disconnect() {}
+
+    disconnect() {
+      global.resizeObserverInstances = global.resizeObserverInstances.filter((instance) => instance !== this)
+    }
+
+    /** Simulates an actual resize, as opposed to the initial observe callback. */
+    trigger() {
+      this.callback([], this)
+    }
   }
 }
 
