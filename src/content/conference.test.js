@@ -1,5 +1,16 @@
 import { describe, it, expect } from 'vitest'
-import { agenda, event, frameLabels, navSections, speakers, schedule, tiers, partners, faq, gallery } from './conference'
+import {
+  agenda,
+  event,
+  frameLabels,
+  navSections,
+  speakers,
+  schedule,
+  registration,
+  partners,
+  faq,
+  gallery,
+} from './conference'
 
 // The content file is edited by non-engineers every year. These tests catch a
 // broken shape before it reaches a component that silently renders nothing.
@@ -33,7 +44,7 @@ describe('images', () => {
 
 describe('collections', () => {
   it('gives every entry a unique id', () => {
-    const groups = [speakers, tiers, faq, gallery, partners.hosts, partners.sponsors]
+    const groups = [speakers, registration.facts, faq, gallery, partners.hosts, partners.sponsors]
     for (const group of groups) {
       const ids = group.map((entry) => entry.id)
       expect(new Set(ids).size).toBe(ids.length)
@@ -51,8 +62,13 @@ describe('collections', () => {
     }
   })
 
-  it('marks exactly one featured tier', () => {
-    expect(tiers.filter((tier) => tier.featured)).toHaveLength(1)
+  it('gives the registration call to action both a live and a pending label', () => {
+    expect(registration.ctaLabel).toBeTruthy()
+    expect(registration.pendingLabel).toBeTruthy()
+    for (const fact of registration.facts) {
+      expect(fact.label).toBeTruthy()
+      expect(fact.value).toBeTruthy()
+    }
   })
 
   it('gives every gallery image alt text', () => {

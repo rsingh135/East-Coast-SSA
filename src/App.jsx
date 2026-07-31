@@ -8,6 +8,7 @@ import { AgendaBlock } from './components/AgendaBlock'
 import { Speakers } from './components/Speakers'
 import { Schedule } from './components/Schedule'
 import { Partners } from './components/Partners'
+import { Register } from './components/Register'
 
 export default function App() {
   const reducedMotion = useReducedMotion()
@@ -26,7 +27,8 @@ export default function App() {
         <Speakers />
         <Schedule />
         <Partners />
-        {/* Sections G–J land here, one piece at a time. */}
+        <Register />
+        {/* Sections H–J land here, one piece at a time. */}
       </main>
     </>
   )

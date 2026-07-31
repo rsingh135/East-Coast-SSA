@@ -184,32 +184,28 @@ export const schedule = {
   },
 }
 
-export const tiers = [
-  {
-    id: 'student',
-    name: 'Student',
-    price: 'Free',
-    note: 'Any enrolled undergraduate or graduate student.',
-    perks: ['Full Saturday program', 'Langar all weekend', 'Friday evening program'],
-    featured: false,
-  },
-  {
-    id: 'delegate',
-    name: 'Delegate',
-    price: '$25',
-    note: 'Students traveling in with an SSA delegation.',
-    perks: ['Everything in Student', 'Housing with a host chapter', 'Conference tote & print program'],
-    featured: false,
-  },
-  {
-    id: 'patron',
-    name: 'Patron',
-    price: '$150',
-    note: 'Alumni and community supporters. Covers a student.',
-    perks: ['Everything in Delegate', 'Reserved seating', 'Sponsors one student registration'],
-    featured: true,
-  },
-]
+/**
+ * The registration call to action. There are no ticket tiers — registration is
+ * a single free sign-up handled by an external form (`event.registerUrl`).
+ *
+ * `facts` renders as a metadata row under the button; add or remove entries
+ * freely.
+ */
+export const registration = {
+  eyebrow: 'Registration',
+  headline: 'Come to the weekend',
+  note: 'Free for any enrolled student. One form, two minutes — housing, dietary needs and travel stipends are all requested on it.',
+  ctaLabel: 'Register',
+  // Shown in place of the button until `event.registerUrl` is a real link.
+  pendingLabel: 'Registration opens soon',
+  facts: [
+    { id: 'when', label: 'When', value: 'Fri 26 – Sat 27 Feb 2027' },
+    { id: 'where', label: 'Where', value: 'Host School TBA' },
+    { id: 'cost', label: 'Cost', value: 'Free for students' },
+    // TODO: confirm the closing date and the cap.
+    { id: 'closes', label: 'Closes', value: '13 February 2027' },
+  ],
+}
 
 // TODO: swap placeholders for real host-school and sponsor marks.
 export const partners = {
