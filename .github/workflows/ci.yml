@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# A newer push to the same branch makes the older run irrelevant.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Matches Vercel's default runtime, so CI and deploy agree.
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      # A blocked or missing asset is invisible in a green build — the bundle
+      # still compiles. This fails the run if the fonts or entry files vanish.
+      - name: Check build output
+        run: |
+          test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          ls dist/assets/*.js >/dev/null || { echo "::error::no JS bundle emitted"; exit 1; }
+          ls dist/assets/*.css >/dev/null || { echo "::error::no CSS bundle emitted"; exit 1; }
+          ls dist/assets/satoshi-*.woff2 >/dev/null || { echo "::error::Satoshi font not bundled"; exit 1; }
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
