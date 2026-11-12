@@ -6,24 +6,26 @@ import { event, frameLabels, navSections } from '../content/conference'
 
 describe('NavFrame', () => {
   it('shows the label for the section that owns the viewport', () => {
-    const { rerender } = render(<NavFrame frameKey="hero" theme="ink" />)
+    const { rerender } = render(<NavFrame frameKey="hero" theme="canvas" />)
     expect(screen.getByTestId('frame-status')).toHaveTextContent(frameLabels.hero)
 
-    rerender(<NavFrame frameKey="speakers" theme="paper" />)
+    rerender(<NavFrame frameKey="speakers" theme="canvas" />)
     expect(screen.getByTestId('frame-status')).toHaveTextContent(frameLabels.speakers)
   })
 
   it('falls back to the hero label for an unknown section key', () => {
-    render(<NavFrame frameKey="nonexistent" theme="ink" />)
+    render(<NavFrame frameKey="nonexistent" theme="canvas" />)
     expect(screen.getByTestId('frame-status')).toHaveTextContent(frameLabels.hero)
   })
 
-  it('inverts the bars over a light section', () => {
-    const { rerender } = render(<NavFrame frameKey="hero" theme="ink" />)
-    expect(screen.getByRole('banner').className).toContain('text-white')
+  it('follows the theme of the section underneath', () => {
+    const { rerender } = render(<NavFrame frameKey="hero" theme="forest" />)
+    expect(screen.getByRole('banner')).toHaveAttribute('data-theme', 'forest')
+    expect(screen.getByTestId('frame-bottom')).toHaveAttribute('data-theme', 'forest')
 
-    rerender(<NavFrame frameKey="speakers" theme="paper" />)
-    expect(screen.getByRole('banner').className).toContain('text-near-black')
+    rerender(<NavFrame frameKey="speakers" theme="canvas" />)
+    expect(screen.getByRole('banner')).toHaveAttribute('data-theme', 'canvas')
+    expect(screen.getByTestId('frame-bottom')).toHaveAttribute('data-theme', 'canvas')
   })
 
   it('always renders the date pill and register link', () => {
@@ -47,12 +49,13 @@ describe('NavFrame', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
-  it('keeps the overlay dark even while sitting over a light section', async () => {
+  it('switches the bars to forest while the menu overlay is open', async () => {
     const user = userEvent.setup()
-    render(<NavFrame frameKey="speakers" theme="paper" />)
+    render(<NavFrame frameKey="speakers" theme="canvas" />)
+    expect(screen.getByRole('banner')).toHaveAttribute('data-theme', 'canvas')
 
     await user.click(screen.getByRole('button', { name: 'Menu' }))
-    expect(screen.getByRole('banner').className).toContain('text-white')
+    expect(screen.getByRole('banner')).toHaveAttribute('data-theme', 'forest')
   })
 
   it('links the overlay to every section in the page order', async () => {

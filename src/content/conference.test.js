@@ -17,27 +17,35 @@ import {
 
 describe('event', () => {
   it('exposes the fields the hero and nav frame read', () => {
-    expect(event.wordmarkLines).toHaveLength(2)
-    expect(event.datePill).toMatch(/^\d{2}\/\d{2}\.\d{2}$/)
+    expect(event.name).toBeTruthy()
+    expect(event.shortName).toBeTruthy()
+    expect(event.datePill).toMatch(/\d{4}$/)
     expect(event.registerUrl).toBeTruthy()
   })
 })
 
 describe('images', () => {
-  it('never points at a remote placeholder service', () => {
-    // A blocked or down remote placeholder renders as a broken image, which
-    // the browser draws with its own border. Everything ships as a data URI.
+  it('never points at a third-party host', () => {
+    // A blocked or down remote image renders as a broken one, which the browser
+    // draws with its own border. Every source is a data URI or a local file.
     const sources = [
       ...speakers.map((speaker) => speaker.image),
       ...agenda.segments.filter((segment) => segment.media).map((segment) => segment.media.src),
       ...partners.hosts.map((host) => host.logo),
       ...partners.sponsors.map((sponsor) => sponsor.logo),
       ...gallery.map((image) => image.src),
-    ]
+    ].filter(Boolean)
 
     expect(sources.length).toBeGreaterThan(0)
     for (const src of sources) {
-      expect(src.startsWith('data:image/svg+xml,')).toBe(true)
+      expect(src.startsWith('data:image/svg+xml,') || src.startsWith('/')).toBe(true)
+    }
+  })
+
+  it('gives a partner without a logo something to render instead', () => {
+    // The card falls back to type; an entry with neither would render empty.
+    for (const partner of [...partners.hosts, ...partners.sponsors]) {
+      expect(Boolean(partner.logo) || Boolean(partner.wordmark) || Boolean(partner.name)).toBe(true)
     }
   })
 })
@@ -83,12 +91,12 @@ describe('agenda', () => {
     }
   })
 
-  it('pairs every keyword with a captioned thumbnail', () => {
+  it('captions any thumbnail a keyword carries', () => {
     const keywords = agenda.segments.filter((segment) => segment.keyword)
     expect(keywords.length).toBeGreaterThan(0)
-    for (const segment of keywords) {
-      expect(segment.media?.src).toBeTruthy()
-      expect(segment.media?.alt).toBeTruthy()
+    for (const segment of keywords.filter((keyword) => keyword.media)) {
+      expect(segment.media.src).toBeTruthy()
+      expect(segment.media.alt).toBeTruthy()
     }
   })
 

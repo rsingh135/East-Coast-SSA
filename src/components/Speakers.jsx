@@ -102,7 +102,7 @@ export function Speakers() {
   return (
     <Section
       id="speakers"
-      bg="ink"
+      bg="forest"
       frame="speakers"
       ref={rootRef}
       className="flex min-h-svh items-center px-4 py-[calc(var(--frame-bar)+4rem)] md:px-8"
@@ -118,7 +118,7 @@ export function Speakers() {
               replaced on every change never gets announced. */}
           <div ref={detailsRef} aria-live="polite" data-testid="speaker-details">
             <span className="line-mask">
-              <span data-speaker-line className="display block text-display text-white/10">
+              <span data-speaker-line className="display block text-display text-fg/10">
                 {pad(index + 1)}
               </span>
             </span>
@@ -138,7 +138,7 @@ export function Speakers() {
             </span>
 
             {active.bio ? (
-              <p data-speaker-fade className="mt-6 max-w-prose leading-relaxed font-light text-white/70">
+              <p data-speaker-fade className="mt-6 max-w-prose leading-relaxed font-light text-fg/70">
                 {active.bio}
               </p>
             ) : null}
@@ -149,7 +149,7 @@ export function Speakers() {
               type="button"
               onClick={() => go(-1)}
               aria-label="Previous speaker"
-              className="label flex size-12 items-center justify-center rounded-full border border-white/25 transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright"
+              className="label flex size-12 items-center justify-center rounded-full border border-fg/25 transition-colors duration-300 hover:border-accent hover:text-accent"
             >
               <span aria-hidden="true">←</span>
             </button>
@@ -157,7 +157,7 @@ export function Speakers() {
               type="button"
               onClick={() => go(1)}
               aria-label="Next speaker"
-              className="label flex size-12 items-center justify-center rounded-full border border-white/25 transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright"
+              className="label flex size-12 items-center justify-center rounded-full border border-fg/25 transition-colors duration-300 hover:border-accent hover:text-accent"
             >
               <span aria-hidden="true">→</span>
             </button>
@@ -189,7 +189,7 @@ export function Speakers() {
                 data-testid={`speaker-card-${card.id}`}
                 // flex-grow is the whole animation: 8 for the open card, 1 for a sliver.
                 style={{ flexGrow: isActive ? 8 : 1 }}
-                className="group relative min-w-0 flex-1 basis-0 overflow-hidden rounded-2xl bg-white/5 transition-[flex-grow] duration-700 ease-out"
+                className="group relative min-w-0 flex-1 basis-0 overflow-hidden rounded-2xl bg-fg/5 transition-[flex-grow] duration-700 ease-out"
               >
                 {card.pending ? (
                   <span className="label absolute inset-0 flex items-center justify-center px-2 text-center text-muted">
@@ -207,7 +207,7 @@ export function Speakers() {
                 {/* Badge overlaps the top-left corner of the open card only.
                     White on the dark portrait, so it still reads as a mark. */}
                 {isActive ? (
-                  <span className="label absolute top-3 left-3 flex size-14 items-center justify-center rounded-full bg-white text-ink">
+                  <span className="label absolute top-3 left-3 flex size-14 items-center justify-center rounded-full bg-fg text-ground">
                     {card.badge}
                   </span>
                 ) : null}
@@ -224,7 +224,7 @@ export function Speakers() {
           type="button"
           onClick={() => setExpanded(true)}
           aria-label={`Expand ${active.name}'s profile`}
-          className="label absolute bottom-[calc(var(--frame-bar)+1.5rem)] left-4 flex items-center gap-3 rounded-full border border-white/25 bg-ink/80 py-3 pr-4 pl-5 backdrop-blur transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright md:left-8"
+          className="label absolute bottom-[calc(var(--frame-bar)+1.5rem)] left-4 flex items-center gap-3 rounded-full border border-fg/25 bg-ground/80 py-3 pr-4 pl-5 backdrop-blur transition-colors duration-300 hover:border-accent hover:text-accent md:left-8"
         >
           Expand
           <span aria-hidden="true">↖</span>

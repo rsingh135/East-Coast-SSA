@@ -1,45 +1,54 @@
 @import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/cormorant-garamond';
 @import 'tailwindcss';
 
-/* Satoshi is Fontshare-only — no npm package — so the variable file is
-   vendored in src/assets/fonts. One file covers weights 300–900.
-   See src/assets/fonts/README.md for source and licence. */
-@font-face {
-  font-family: 'Satoshi';
-  /* Plain `woff2`, not `woff2-variations`: the legacy format string is skipped
-     outright by browsers that don't know it, and a variable woff2 loads fine
-     under the standard one. */
-  src: url('../assets/fonts/satoshi-variable.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* SILC brand palette, sampled from the logo artwork (src/assets/brand). */
 @theme {
-  --color-ink: #000000;
-  --color-paper: #e5e5e5;
-  --color-near-black: #111111;
-  --color-muted: #888888;
-  /* Nihang blue, two tints of one hue: deep reads on paper, bright reads on ink. */
-  --color-accent-deep: #1b3a6b;
-  --color-accent-bright: #3d6fd4;
+  --color-forest: #1f2e1d; /* deep ivy — the default ground */
+  --color-cream: #faf7ee; /* logo paper */
+  --color-ivy: #2d4129; /* logo letterforms */
+  --color-leaf: #4e7240; /* accent on cream */
+  --color-sprout: #a9c493; /* accent on forest */
+  --color-moss: #69715f; /* secondary text on cream */
+  --color-mist: #a3ad99; /* secondary text on forest */
 
-  --font-display: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+  /* Semantic roles. Components only ever use these, never the brand colours
+     above, so a surface flips theme by swapping four variables (see the
+     [data-bg] blocks below) rather than by rewriting class names. */
+  --color-ground: var(--color-forest);
+  --color-fg: var(--color-cream);
+  --color-accent: var(--color-sprout);
+  --color-muted: var(--color-mist);
+
+  --font-display: 'Cormorant Garamond Variable', ui-serif, Georgia, serif;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
 
-  /* Fluid display scale — no breakpoint jumps between phone and ultrawide.
-     Ceilings are deliberately modest: the hero line "SSA Conference" is 14
-     characters, and anything past ~7vw overruns the viewport on a laptop. */
-  --text-display-sm: clamp(1.75rem, 4.5vw, 3rem);
-  --text-display: clamp(2rem, 5.5vw, 4.25rem);
-  /* Floor is sized so the longest wordmark line ("SSA Conference", ~7.5em in
-     Syne) still fits a 320px viewport without wrapping. */
-  --text-hero: clamp(2rem, 7vw, 6rem);
+  /* Fluid display scale — no breakpoint jumps between phone and ultrawide. */
+  --text-display-sm: clamp(1.875rem, 4.75vw, 3.25rem);
+  --text-display: clamp(2.25rem, 6vw, 4.75rem);
+  --text-hero: clamp(2.5rem, 8vw, 7rem);
 
   /* Height of the fixed nav bars, so sections can offset against them. */
   --frame-bar: 3.5rem;
+}
+
+/* Forest is the default (set on :root by @theme above). A section or bar
+   opts into the light cream surface with data-bg / data-theme="canvas"; the
+   forest selectors exist so a dark layer can sit inside a light one. */
+[data-bg='canvas'],
+[data-theme='canvas'] {
+  --color-ground: var(--color-cream);
+  --color-fg: var(--color-ivy);
+  --color-accent: var(--color-leaf);
+  --color-muted: var(--color-moss);
+}
+
+[data-bg='forest'],
+[data-theme='forest'] {
+  --color-ground: var(--color-forest);
+  --color-fg: var(--color-cream);
+  --color-accent: var(--color-sprout);
+  --color-muted: var(--color-mist);
 }
 
 @layer base {
@@ -49,45 +58,46 @@
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-white);
+    background-color: var(--color-ground);
+    color: var(--color-fg);
     font-family: var(--font-sans);
     font-weight: 300;
     overflow-x: hidden;
   }
 
   ::selection {
-    background-color: var(--color-accent-bright);
-    color: var(--color-white);
+    background-color: var(--color-fg);
+    color: var(--color-ground);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent-bright);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
-  }
-
-  [data-bg='paper'] :focus-visible {
-    outline-color: var(--color-accent-deep);
   }
 }
 
 @layer components {
-  /* Uppercase tracked mono, used for every label, badge and metadata line. */
+  /* Wide-tracked serif capitals, after the logo's "SIKH IVY LEAGUE
+     CONFERENCE" line. Used for every label, badge and metadata line. */
   .label {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    line-height: 1.3;
     text-transform: uppercase;
+    /* Cormorant defaults to old-style figures, which sink below the caps. */
+    font-variant-numeric: lining-nums;
   }
 
   /* Case is left to the caller — add `uppercase` where a label needs shouting.
      Line height stays under 1 so stacked display lines read as one block. */
   .display {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 0.98;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    font-variant-numeric: lining-nums;
   }
 
   /* Wraps a line of display type so it can slide up out of a hard mask. */

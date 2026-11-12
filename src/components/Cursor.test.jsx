@@ -78,14 +78,14 @@ describe('Cursor', () => {
     expect(screen.queryByTestId('cursor')).not.toBeInTheDocument()
   })
 
-  it('draws a black arrow with a white outline, anchored at its tip', () => {
+  it('draws an ivy arrow with a cream outline, anchored at its tip', () => {
     render(<Cursor />)
     const path = screen.getByTestId('cursor-arrow').querySelector('path')
 
-    // Black on white is what keeps it legible over both the ink and paper
+    // Ivy on cream is what keeps it legible over both the canvas and forest
     // sections without relying on blend modes.
-    expect(path).toHaveAttribute('fill', '#000000')
-    expect(path).toHaveAttribute('stroke', '#FFFFFF')
+    expect(path).toHaveAttribute('fill', '#2d4129')
+    expect(path).toHaveAttribute('stroke', '#faf7ee')
 
     // Transforms have to pivot about the tip, since the tip is where the
     // pointer actually is — pivoting about the box would drift the hotspot.

@@ -10,7 +10,7 @@ import { faq } from '../content/conference'
  */
 function FaqItem({ item, isOpen, onToggle }) {
   return (
-    <div className="border-t border-white/15">
+    <div className="border-t border-fg/15">
       <h3>
         <button
           type="button"
@@ -18,12 +18,12 @@ function FaqItem({ item, isOpen, onToggle }) {
           aria-expanded={isOpen}
           aria-controls={`faq-panel-${item.id}`}
           onClick={onToggle}
-          className="group flex w-full items-center justify-between gap-6 py-6 text-left transition-colors duration-300 hover:text-accent-bright"
+          className="group flex w-full items-center justify-between gap-6 py-6 text-left transition-colors duration-300 hover:text-accent"
         >
           <span className="display text-display-sm">{item.q}</span>
           <span
             aria-hidden="true"
-            className={`flex size-10 shrink-0 items-center justify-center rounded-full border border-white/25 text-lg transition-transform duration-500 ease-out ${
+            className={`flex size-10 shrink-0 items-center justify-center rounded-full border border-fg/25 text-lg transition-transform duration-500 ease-out ${
               isOpen ? 'rotate-45' : ''
             }`}
           >
@@ -46,7 +46,23 @@ function FaqItem({ item, isOpen, onToggle }) {
           inert={!isOpen}
           className="overflow-hidden"
         >
-          <p className="max-w-2xl pb-8 leading-relaxed font-light text-white/70">{item.a}</p>
+          <p className="max-w-2xl pb-8 leading-relaxed font-light text-fg/70">
+            {item.a}
+            {item.link && (
+              <>
+                {' '}
+                <a
+                  href={item.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-fg underline decoration-fg/30 underline-offset-4 transition-colors duration-300 hover:text-accent hover:decoration-accent"
+                >
+                  {item.link.label}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </>
+            )}
+          </p>
         </div>
       </div>
     </div>
@@ -80,7 +96,7 @@ export function Faq() {
   )
 
   return (
-    <Section id="faq" bg="ink" frame="faq" ref={rootRef} className="px-4 py-[calc(var(--frame-bar)+5rem)] md:px-8">
+    <Section id="faq" bg="forest" frame="faq" ref={rootRef} className="px-4 py-[calc(var(--frame-bar)+5rem)] md:px-8">
       <div className="mx-auto max-w-4xl">
         <div data-faq-reveal className="opacity-0">
           <p className="label text-muted">Questions</p>

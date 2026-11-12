@@ -45,7 +45,13 @@ jobs:
           test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
           ls dist/assets/*.js >/dev/null || { echo "::error::no JS bundle emitted"; exit 1; }
           ls dist/assets/*.css >/dev/null || { echo "::error::no CSS bundle emitted"; exit 1; }
-          ls dist/assets/satoshi-*.woff2 >/dev/null || { echo "::error::Satoshi font not bundled"; exit 1; }
+          ls dist/assets/cormorant-garamond-*.woff2 >/dev/null || { echo "::error::Cormorant Garamond font not bundled"; exit 1; }
+          ls dist/assets/silc-logo-*.webp >/dev/null || { echo "::error::SILC logo not bundled"; exit 1; }
+          test -f dist/favicon-32.png || { echo "::error::favicon missing"; exit 1; }
+          test -f dist/hero.mp4 || { echo "::error::hero film missing from build"; exit 1; }
+          test -f dist/hero-poster.jpg || { echo "::error::hero poster missing from build"; exit 1; }
+          test -f dist/hero-final.jpg || { echo "::error::hero final frame missing from build"; exit 1; }
+          ls dist/archive/*.jpg >/dev/null || { echo "::error::archive photographs missing from build"; exit 1; }
 
       - name: Upload build
         uses: actions/upload-artifact@v4

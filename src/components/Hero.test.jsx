@@ -20,40 +20,25 @@ describe('Hero', () => {
     window.matchMedia = originalMatchMedia
   })
 
-  it('names the conference once for assistive tech, then sets it oversized', () => {
+  it('sets the logo as the heading, named once for assistive tech', () => {
     render(<Hero />)
     const heading = screen.getByRole('heading', { level: 1 })
     expect(heading).toHaveAccessibleName(event.name)
-    for (const line of event.wordmarkLines) {
-      expect(heading).toHaveTextContent(line)
-    }
+    expect(screen.getByRole('img', { name: event.name })).toBeInTheDocument()
   })
 
-  it('masks each wordmark line so it can slide up independently', () => {
+  it('masks the logo so it can slide up into place', () => {
     render(<Hero />)
     const lines = document.querySelectorAll('[data-hero-line]')
-    expect(lines).toHaveLength(event.wordmarkLines.length)
-    for (const line of lines) {
-      expect(line.parentElement.className).toContain('line-mask')
-    }
-  })
-
-  it('never lets a wordmark line wrap inside its mask', () => {
-    // A wrap inside an overflow-hidden mask gets clipped instead of flowing,
-    // and any width cap in `ch` on the heading resolves against the heading's
-    // own 16px font-size — which is what clipped it the first time round.
-    render(<Hero />)
-    for (const line of document.querySelectorAll('[data-hero-line]')) {
-      expect(line.className).toContain('whitespace-nowrap')
-    }
-    expect(screen.getByRole('heading', { level: 1 }).className).not.toMatch(/max-w-\[\d+ch\]/)
+    expect(lines).toHaveLength(1)
+    expect(lines[0].parentElement.className).toContain('line-mask')
   })
 
   it('carries the event metadata the frame does not', () => {
     render(<Hero />)
     expect(screen.getByText(event.dates)).toBeInTheDocument()
     expect(screen.getByText(event.city)).toBeInTheDocument()
-    expect(screen.getByText(new RegExp(event.hostSchool))).toBeInTheDocument()
+    expect(screen.getAllByText(new RegExp(event.cityShort)).length).toBeGreaterThan(0)
   })
 
   it('sends the CTA to the registration section', () => {
@@ -66,6 +51,24 @@ describe('Hero', () => {
     const media = screen.getByTestId('hero-media')
     expect(media).toHaveAttribute('poster')
     expect(media.closest('[aria-hidden="true"]')).not.toBeNull()
+  })
+
+  it('plays the film once, starting from its first frame', () => {
+    mockReducedMotion(false)
+    render(<Hero />)
+    const media = screen.getByTestId('hero-media')
+    // No loop: a video that ends without looping holds its last frame.
+    expect(media).not.toHaveAttribute('loop')
+    expect(media.autoplay).toBe(true)
+    expect(media).toHaveAttribute('poster', '/hero-poster.jpg')
+  })
+
+  it('shows the final frame as a still under reduced motion', () => {
+    mockReducedMotion(true)
+    render(<Hero />)
+    const media = screen.getByTestId('hero-media')
+    expect(media.autoplay).toBe(false)
+    expect(media).toHaveAttribute('poster', '/hero-final.jpg')
   })
 
   it('reveals everything immediately under reduced motion', () => {

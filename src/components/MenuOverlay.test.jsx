@@ -36,7 +36,7 @@ describe('MenuOverlay', () => {
     const user = userEvent.setup()
     render(<MenuOverlay open onClose={onClose} />)
 
-    await user.click(screen.getByRole('link', { name: /speakers/i }))
+    await user.click(screen.getByRole('link', { name: /schedule/i }))
     expect(onClose).toHaveBeenCalledOnce()
   })
 })

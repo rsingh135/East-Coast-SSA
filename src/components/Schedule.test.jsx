@@ -106,11 +106,11 @@ describe('Schedule', () => {
   it('carries one moving pill rather than a background per tab', () => {
     render(<Schedule />)
 
-    // The pill is the only white surface; if it ever failed to render, the
-    // active tab's dark label would sit on a black bar.
+    // The pill is the only fg-coloured surface; if it ever failed to render,
+    // the active tab's ground-coloured label would vanish into the track.
     const thumb = screen.getByTestId('schedule-thumb')
     expect(thumb).toHaveAttribute('aria-hidden', 'true')
-    expect(thumb.className).toContain('from-white')
+    expect(thumb.className).toContain('from-fg')
 
     for (const day of [friday, saturday]) {
       expect(screen.getByRole('tab', { name: day.label }).className).not.toMatch(/\bbg-\w/)

@@ -8,7 +8,7 @@ import { ScrollTrigger } from '../lib/gsap'
  * Returns `{ frameKey, theme }`. Purely observational — no DOM writes.
  */
 export function useSectionFrame(fallbackKey = 'hero') {
-  const [state, setState] = useState({ frameKey: fallbackKey, theme: 'ink' })
+  const [state, setState] = useState({ frameKey: fallbackKey, theme: 'forest' })
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll('section[data-frame]'))
@@ -24,7 +24,7 @@ export function useSectionFrame(fallbackKey = 'hero') {
           if (!self.isActive) return
           setState({
             frameKey: section.dataset.frame,
-            theme: section.dataset.bg === 'paper' ? 'paper' : 'ink',
+            theme: section.dataset.bg === 'canvas' ? 'canvas' : 'forest',
           })
         },
       }),

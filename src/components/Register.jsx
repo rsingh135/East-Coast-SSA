@@ -38,7 +38,7 @@ export function Register({ registerUrl = event.registerUrl }) {
   return (
     <Section
       id="register"
-      bg="ink"
+      bg="forest"
       frame="register"
       ref={rootRef}
       className="flex min-h-svh flex-col justify-center px-4 py-[calc(var(--frame-bar)+5rem)] md:px-8"
@@ -64,7 +64,7 @@ export function Register({ registerUrl = event.registerUrl }) {
               href={registerUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-6 rounded-full bg-white py-6 pr-8 pl-10 text-near-black transition-colors duration-300 hover:bg-accent-bright hover:text-white"
+              className="group inline-flex items-center gap-6 rounded-full bg-fg py-6 pr-8 pl-10 text-ground transition-colors duration-300 hover:bg-accent"
             >
               <span className="display text-2xl md:text-3xl">{registration.ctaLabel}</span>
               <span
@@ -79,14 +79,14 @@ export function Register({ registerUrl = event.registerUrl }) {
             // situation instead of inviting a click that goes nowhere.
             <p
               data-testid="register-pending"
-              className="label inline-flex items-center gap-3 rounded-full border border-dashed border-white/30 px-8 py-6 text-muted"
+              className="label inline-flex items-center gap-3 rounded-full border border-dashed border-fg/30 px-8 py-6 text-muted"
             >
               {registration.pendingLabel}
             </p>
           )}
         </div>
 
-        <dl data-register-fade className="mt-16 grid grid-cols-2 gap-8 border-t border-white/10 pt-10 opacity-0 md:grid-cols-4">
+        <dl data-register-fade className="mt-16 grid grid-cols-2 gap-8 border-t border-fg/10 pt-10 opacity-0 md:grid-cols-4">
           {registration.facts.map((fact) => (
             <div key={fact.id}>
               <dt className="label text-muted">{fact.label}</dt>

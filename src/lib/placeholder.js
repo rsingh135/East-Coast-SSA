@@ -16,7 +16,7 @@ export function placeholderImage(label, { width = 800, height = 1100, bg = '#141
   const svg = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
     `<rect width="100%" height="100%" fill="${bg}"/>`,
-    `<text x="50%" y="50%" fill="${fg}" font-family="monospace" font-size="${fontSize}"`,
+    `<text x="50%" y="50%" fill="${fg}" font-family="Georgia, serif" font-size="${fontSize}"`,
     ` letter-spacing="2" text-anchor="middle" dominant-baseline="middle">${escapeXml(label)}</text>`,
     `</svg>`,
   ].join('')

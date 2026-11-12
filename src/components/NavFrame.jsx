@@ -9,16 +9,18 @@ import { MenuOverlay } from './MenuOverlay'
  * which keeps the scroll observation out of here and this component trivial
  * to test.
  */
-export function NavFrame({ frameKey = 'hero', theme = 'ink' }) {
+export function NavFrame({ frameKey = 'hero', theme = 'forest' }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   // While the overlay is up it owns the colour scheme, not the section below.
-  const onPaper = theme === 'paper' && !menuOpen
-  const barText = onPaper ? 'text-near-black' : 'text-white'
-  const hoverText = onPaper ? 'hover:text-accent-deep' : 'hover:text-accent-bright'
-  const rule = onPaper ? 'border-near-black/10' : 'border-white/10'
+  // `data-theme` scopes the colour roles, so the classes never change.
+  const barTheme = menuOpen ? 'forest' : theme
+  // Translucent ground so copy scrolling underneath never collides with the
+  // bar labels; clear over the menu, which supplies its own ground.
+  const barBg = menuOpen ? 'bg-transparent' : 'bg-ground/85 backdrop-blur-md'
+  const bar = `pointer-events-none fixed inset-x-0 z-100 flex h-[var(--frame-bar)] items-center justify-between px-4 text-fg transition-colors duration-500 md:px-6 border-fg/10 ${barBg}`
 
-  const item = `label ${hoverText} transition-colors duration-300`
+  const item = 'label hover:text-accent transition-colors duration-300'
 
   return (
     <>
@@ -27,8 +29,8 @@ export function NavFrame({ frameKey = 'hero', theme = 'ink' }) {
       {/* pointer-events-none so the bars never eat a scroll or a click meant
           for the page; each control re-enables them for itself. */}
       <header
-        data-theme={theme}
-        className={`pointer-events-none fixed inset-x-0 top-0 z-100 flex h-[var(--frame-bar)] items-center justify-between border-b px-4 transition-colors duration-500 md:px-6 ${barText} ${rule}`}
+        data-theme={barTheme}
+        className={`${bar} top-0 border-b`}
       >
         <button
           type="button"
@@ -39,7 +41,7 @@ export function NavFrame({ frameKey = 'hero', theme = 'ink' }) {
           {menuOpen ? 'Close' : 'Menu'}
         </button>
 
-        <a href="#hero" className={`${item} pointer-events-auto font-display text-sm font-extrabold tracking-tight`}>
+        <a href="#hero" className={`${item} pointer-events-auto font-display !text-base !font-semibold !tracking-[0.3em]`}>
           {event.shortName}
         </a>
 
@@ -51,9 +53,9 @@ export function NavFrame({ frameKey = 'hero', theme = 'ink' }) {
       {/* A div, not a <footer>: the page's real footer owns the contentinfo
           landmark, and two of them would be ambiguous. This is a status strip. */}
       <div
-        data-theme={theme}
+        data-theme={barTheme}
         data-testid="frame-bottom"
-        className={`pointer-events-none fixed inset-x-0 bottom-0 z-100 flex h-[var(--frame-bar)] items-center justify-between border-t px-4 transition-colors duration-500 md:px-6 ${barText} ${rule}`}
+        className={`${bar} bottom-0 border-t`}
       >
         <a
           href={event.instagramUrl}
@@ -64,7 +66,7 @@ export function NavFrame({ frameKey = 'hero', theme = 'ink' }) {
           Instagram
         </a>
 
-        <span className={`label ${onPaper ? 'text-near-black' : 'text-white'}`}>{event.datePill}</span>
+        <span className="label">{event.datePill}</span>
 
         {/* aria-live so the label change is announced rather than silently swapped. */}
         <span className="label text-right" aria-live="polite" data-testid="frame-status">

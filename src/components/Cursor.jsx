@@ -6,8 +6,8 @@ const HOVER_SELECTOR = 'a, button, [data-cursor="hover"]'
 const FINE_POINTER = '(hover: hover) and (pointer: fine)'
 
 /**
- * Arrow cursor: black fill, white outline, so it stays legible on both the ink
- * and paper halves of the page without any blend trickery.
+ * Arrow cursor: ivy fill, cream outline, so it stays legible on both the canvas
+ * and forest surfaces without any blend trickery.
  *
  * Not rendered on touch devices or under reduced motion — the native cursor
  * beats a laggy imitation of one.
@@ -88,15 +88,15 @@ export function Cursor() {
           'rotate-[-12deg] opacity-0 drop-shadow-sm',
           'transition-[opacity,scale] duration-200 ease-out',
           'group-data-[visible=true]:opacity-100',
-          // Grows a touch over anything interactive; the fill stays black so
+          // Grows a touch over anything interactive; the fill stays ivy so
           // the shape reads the same everywhere.
           'group-data-[hover=true]:scale-125',
         ].join(' ')}
       >
         <path
           d="M5.5 3.21V20.79c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.86a.5.5 0 0 0-.85.35Z"
-          fill="#000000"
-          stroke="#FFFFFF"
+          fill="#2d4129"
+          stroke="#faf7ee"
           strokeWidth="1.6"
           strokeLinejoin="round"
         />

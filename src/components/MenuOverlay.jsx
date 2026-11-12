@@ -3,7 +3,7 @@ import { navSections, event } from '../content/conference'
 import { useOverlay } from '../hooks/useOverlay'
 
 /**
- * Full-screen navigation overlay. Always ink-on-white regardless of the
+ * Full-screen navigation overlay. Always the forest theme regardless of the
  * section underneath, so it reads as a separate layer rather than a panel.
  *
  * Escape closes it, the first link takes focus on open, and body scroll is
@@ -19,9 +19,10 @@ export function MenuOverlay({ open, onClose }) {
   return (
     <div
       role="dialog"
+      data-theme="forest"
       aria-modal="true"
       aria-label="Site navigation"
-      className="fixed inset-0 z-90 flex flex-col justify-between bg-ink px-6 pt-[var(--frame-bar)] pb-[var(--frame-bar)] text-white md:px-10"
+      className="fixed inset-0 z-90 flex flex-col justify-between bg-ground px-6 pt-[var(--frame-bar)] pb-[var(--frame-bar)] text-fg md:px-10"
     >
       <nav className="flex flex-1 flex-col justify-center gap-1">
         {navSections.map((section, index) => (
@@ -30,9 +31,9 @@ export function MenuOverlay({ open, onClose }) {
             ref={index === 0 ? firstLinkRef : null}
             href={`#${section.id}`}
             onClick={onClose}
-            className="group flex items-baseline gap-4 py-1 transition-colors hover:text-accent-bright md:gap-8"
+            className="group flex items-baseline gap-4 py-1 transition-colors hover:text-accent md:gap-8"
           >
-            <span className="label text-muted transition-colors group-hover:text-accent-bright">
+            <span className="label text-muted transition-colors group-hover:text-accent">
               {String(index + 1).padStart(2, '0')}
             </span>
             <span className="display text-display-sm">{section.label}</span>
@@ -42,7 +43,7 @@ export function MenuOverlay({ open, onClose }) {
 
       <div className="label flex flex-wrap items-center justify-between gap-4 text-muted">
         <span>{event.dates}</span>
-        <a href={`mailto:${event.email}`} className="transition-colors hover:text-white">
+        <a href={`mailto:${event.email}`} className="transition-colors hover:text-fg">
           {event.email}
         </a>
       </div>

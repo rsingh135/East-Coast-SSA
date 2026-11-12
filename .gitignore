@@ -5,6 +5,12 @@ node_modules/
 dist/
 dist-ssr/
 
+# media masters — the encoded, EXIF-stripped copies in public/ are what ship.
+# See the README for the ffmpeg commands that regenerate them.
+/herovid.mp4
+/*.JPG
+/*.jpg
+
 # local env
 .env
 .env.local

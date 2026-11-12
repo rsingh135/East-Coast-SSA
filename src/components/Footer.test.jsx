@@ -31,6 +31,6 @@ describe('Footer', () => {
   it('carries the event identity and the year', () => {
     render(<Footer />)
     expect(screen.getByText(event.hostLine)).toBeInTheDocument()
-    expect(screen.getByText(new RegExp(`© ${event.year}`))).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(`© ${new Date().getFullYear()}`))).toBeInTheDocument()
   })
 })

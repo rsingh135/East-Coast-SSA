@@ -17,7 +17,7 @@ export function SpeakerOverlay({ speaker, open, onClose }) {
       role="dialog"
       aria-modal="true"
       aria-label={`${speaker.name}, ${speaker.role}`}
-      className="fixed inset-0 z-90 overflow-y-auto bg-ink text-white"
+      className="fixed inset-0 z-90 overflow-y-auto bg-ground text-fg"
     >
       <div className="mx-auto grid min-h-full max-w-6xl grid-cols-1 gap-8 px-4 py-[calc(var(--frame-bar)+2rem)] md:grid-cols-2 md:gap-14 md:px-8">
         <img
@@ -27,7 +27,7 @@ export function SpeakerOverlay({ speaker, open, onClose }) {
         />
 
         <div className="flex flex-col justify-center gap-6">
-          <p className="label text-accent-bright">{speaker.badge}</p>
+          <p className="label text-accent">{speaker.badge}</p>
 
           <div>
             <h2 className="display text-display">{speaker.name}</h2>
@@ -36,13 +36,13 @@ export function SpeakerOverlay({ speaker, open, onClose }) {
             </p>
           </div>
 
-          <p className="max-w-prose text-lg leading-relaxed font-light text-white/80">{speaker.bio}</p>
+          <p className="max-w-prose text-lg leading-relaxed font-light text-fg/80">{speaker.bio}</p>
 
           <button
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="label group flex w-fit items-center gap-3 rounded-full border border-white/25 py-3 pr-4 pl-5 transition-colors duration-300 hover:border-accent-bright hover:text-accent-bright"
+            className="label group flex w-fit items-center gap-3 rounded-full border border-fg/25 py-3 pr-4 pl-5 transition-colors duration-300 hover:border-accent hover:text-accent"
           >
             Close
             <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">

@@ -183,7 +183,7 @@ export function Schedule() {
   return (
     <Section
       id="schedule"
-      bg="ink"
+      bg="forest"
       frame="schedule"
       ref={rootRef}
       className="px-4 py-[calc(var(--frame-bar)+5rem)] md:px-8"
@@ -212,7 +212,7 @@ export function Schedule() {
             onKeyDown={onTabKeyDown}
             // Recessed track: the inner shadow gives the pill something to sit
             // inside, which is what sells the depth.
-            className="relative flex rounded-full border border-white/15 bg-white/5 p-1 shadow-[inset_0_2px_6px_rgba(0,0,0,0.55)]"
+            className="relative flex rounded-full border border-fg/15 bg-fg/5 p-1 shadow-[inset_0_2px_6px_rgba(0,0,0,0.35)]"
           >
             {/* The moving pill. Sits behind the labels; the buttons themselves
                 carry no background, so only one surface ever moves. */}
@@ -224,8 +224,8 @@ export function Schedule() {
               // cast shadow, so the pill reads as an object moving over the
               // track rather than a flat block of colour.
               // w-1/2 is the two-tab fallback if measurement never runs: the
-              // active label is dark, so the pill must never be missing.
-              className="absolute top-1 bottom-1 left-0 w-1/2 rounded-full bg-gradient-to-b from-white to-[#d8d8d8] shadow-[inset_0_1px_0_rgba(255,255,255,0.95),inset_0_-1px_2px_rgba(0,0,0,0.12),0_3px_10px_rgba(0,0,0,0.45)]"
+              // active label is ground-coloured, so the pill must never be missing.
+              className="absolute top-1 bottom-1 left-0 w-1/2 rounded-full bg-gradient-to-b from-fg to-fg/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-1px_2px_rgba(0,0,0,0.15),0_3px_10px_rgba(0,0,0,0.4)]"
             />
 
             {days.map((day) => {
@@ -245,7 +245,7 @@ export function Schedule() {
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => setDayId(day.id)}
                   className={`label relative z-10 rounded-full px-7 py-3 transition-colors duration-300 ease-out ${
-                    isActive ? 'text-near-black' : 'text-muted hover:text-white'
+                    isActive ? 'text-ground' : 'text-muted hover:text-fg'
                   }`}
                 >
                   {day.label}
@@ -270,9 +270,9 @@ export function Schedule() {
               // items-center, not items-baseline: the columns are wildly
               // different sizes, and the right column can run to two lines, so
               // baselines leave the row looking ragged.
-              className="group grid grid-cols-1 gap-2 border-t border-white/10 py-6 transition-colors duration-300 hover:border-white/40 md:grid-cols-[8rem_1fr_18rem] md:items-center md:gap-8"
+              className="group grid grid-cols-1 gap-2 border-t border-fg/10 py-6 transition-colors duration-300 hover:border-fg/40 md:grid-cols-[8rem_1fr_18rem] md:items-center md:gap-8"
             >
-              <p className="label text-muted transition-colors duration-300 group-hover:text-accent-bright">
+              <p className="label text-muted transition-colors duration-300 group-hover:text-accent">
                 {item.time}
               </p>
 

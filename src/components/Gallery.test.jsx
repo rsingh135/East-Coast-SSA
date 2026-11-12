@@ -16,13 +16,35 @@ describe('Gallery', () => {
     // and take photographs with it.
     render(<Gallery />)
 
-    const columns = [0, 1, 2].map((index) => screen.getByTestId(`gallery-column-${index}`))
+    const columns = [...document.querySelectorAll('[data-gallery-column]')]
     const total = columns.reduce((count, column) => count + column.querySelectorAll('img').length, 0)
     expect(total).toBe(gallery.length)
 
     for (const column of columns) {
       expect(column.querySelectorAll('img').length).toBeGreaterThan(0)
       expect(column.className).not.toContain('hidden')
+    }
+  })
+
+  it('never leaves a column holding fewer than half of what its neighbours do', () => {
+    // Three columns need six photographs to fill; below that the layout drops
+    // to two, or the last column reads as a gap rather than a composition.
+    render(<Gallery />)
+
+    const counts = [...document.querySelectorAll('[data-gallery-column]')].map(
+      (column) => column.querySelectorAll('img').length,
+    )
+    expect(Math.max(...counts) - Math.min(...counts)).toBeLessThanOrEqual(1)
+  })
+
+  it('reserves each photograph its space before it loads', () => {
+    // Without intrinsic dimensions a lazily-loaded grid collapses to nothing
+    // and shoves the page down as each photograph arrives.
+    render(<Gallery />)
+    for (const image of gallery) {
+      const rendered = screen.getByAltText(image.alt)
+      expect(rendered).toHaveAttribute('width', String(image.width))
+      expect(rendered).toHaveAttribute('height', String(image.height))
     }
   })
 

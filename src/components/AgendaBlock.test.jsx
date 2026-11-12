@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { AgendaBlock } from './AgendaBlock'
+import { AgendaBlock, KeywordBadge } from './AgendaBlock'
 import { agenda } from '../content/conference'
 
 function mockReducedMotion(reduce) {
@@ -15,6 +15,7 @@ function mockReducedMotion(reduce) {
 }
 
 const keywordSegments = agenda.segments.filter((segment) => segment.keyword)
+const media = { src: '/photos/mentors.jpg', alt: 'Students talking with a mentor' }
 
 describe('AgendaBlock', () => {
   const originalMatchMedia = window.matchMedia
@@ -28,35 +29,43 @@ describe('AgendaBlock', () => {
     expect(screen.getByTestId('agenda-copy')).toHaveTextContent(expected.replace(/\s+/g, ' ').trim())
   })
 
-  it('gives every keyword a thumbnail with real alt text', () => {
-    render(<AgendaBlock />)
-    expect(keywordSegments.length).toBeGreaterThan(0)
-    for (const segment of keywordSegments) {
-      expect(screen.getByAltText(segment.media.alt)).toBeInTheDocument()
-    }
+  it('keeps a keyword without media as plain emphasis, with no focus stop', () => {
+    render(<KeywordBadge keyword="langar" />)
+    const keyword = screen.getByText('langar')
+    expect(keyword).not.toHaveAttribute('tabindex')
+    expect(screen.queryByRole('img')).toBeNull()
+  })
+
+  it('gives a keyword with media a thumbnail with real alt text', () => {
+    render(<KeywordBadge keyword="mentors" media={media} />)
+    expect(screen.getByAltText(media.alt)).toHaveAttribute('src', media.src)
   })
 
   it('keeps the thumbnail out of the text flow so revealing it cannot reflow the sentence', () => {
+    render(<KeywordBadge keyword="mentors" media={media} />)
+    const badge = screen.getByTestId('badge-mentors')
+    expect(badge.className).toContain('absolute')
+    expect(badge.className).toContain('pointer-events-none')
+  })
+
+  it('makes a thumbnail keyword reachable by keyboard, not hover only', () => {
+    render(<KeywordBadge keyword="mentors" media={media} />)
+    const wrapper = screen.getByTestId('badge-mentors').parentElement
+    expect(wrapper).toHaveAttribute('tabindex', '0')
+    expect(wrapper.className).toContain('group')
+  })
+
+  it('renders every keyword in the content, with or without media', () => {
     render(<AgendaBlock />)
     for (const segment of keywordSegments) {
-      const badge = screen.getByTestId(`badge-${segment.keyword}`)
-      expect(badge.className).toContain('absolute')
-      expect(badge.className).toContain('pointer-events-none')
+      expect(screen.getByText(segment.keyword)).toBeInTheDocument()
+      if (segment.media) expect(screen.getByAltText(segment.media.alt)).toBeInTheDocument()
     }
   })
 
-  it('makes each keyword reachable by keyboard, not hover only', () => {
+  it('cues the way to the next section', () => {
     render(<AgendaBlock />)
-    for (const segment of keywordSegments) {
-      const wrapper = screen.getByTestId(`badge-${segment.keyword}`).parentElement
-      expect(wrapper).toHaveAttribute('tabindex', '0')
-      expect(wrapper.className).toContain('group')
-    }
-  })
-
-  it('cues the way to the speakers section', () => {
-    render(<AgendaBlock />)
-    expect(screen.getByRole('link', { name: new RegExp(agenda.cue, 'i') })).toHaveAttribute('href', '#speakers')
+    expect(screen.getByRole('link', { name: new RegExp(agenda.cue.label, 'i') })).toHaveAttribute('href', agenda.cue.href)
   })
 
   it('shows the whole block immediately under reduced motion', () => {

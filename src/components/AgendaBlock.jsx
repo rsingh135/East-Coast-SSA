@@ -8,11 +8,18 @@ import { agenda } from '../content/conference'
  * positioned, so revealing it never reflows the sentence around it.
  *
  * Focusable, so the reveal is reachable by keyboard and not hover-only.
+ *
+ * Without `media` it is plain emphasis: no underline, no focus stop and no
+ * hover cursor, since there is nothing to reveal.
  */
-function KeywordBadge({ keyword, media }) {
+export function KeywordBadge({ keyword, media }) {
+  if (!media) {
+    return <span className="text-fg">{keyword}</span>
+  }
+
   return (
     <span className="group relative inline-block" tabIndex={0} data-cursor="hover">
-      <span className="border-b border-white/30 text-white transition-colors duration-300 group-hover:border-accent-bright group-hover:text-accent-bright group-focus-visible:border-accent-bright group-focus-visible:text-accent-bright">
+      <span className="border-b border-fg/30 text-fg transition-colors duration-300 group-hover:border-accent group-hover:text-accent group-focus-visible:border-accent group-focus-visible:text-accent">
         {keyword}
       </span>
 
@@ -24,7 +31,7 @@ function KeywordBadge({ keyword, media }) {
           src={media.src}
           alt={media.alt}
           loading="lazy"
-          className="h-24 w-36 -rotate-3 rounded-xl object-cover shadow-2xl shadow-black/60"
+          className="h-24 w-36 -rotate-3 rounded-xl object-cover shadow-2xl shadow-black/50"
         />
       </span>
     </span>
@@ -65,7 +72,7 @@ export function AgendaBlock() {
   return (
     <Section
       id="agenda"
-      bg="ink"
+      bg="forest"
       frame="agenda"
       ref={rootRef}
       className="flex min-h-svh flex-col items-center justify-center gap-14 px-6 py-32 text-center"
@@ -91,10 +98,10 @@ export function AgendaBlock() {
 
       <a
         data-agenda-reveal
-        href="#speakers"
-        className="label group flex flex-col items-center gap-3 text-muted opacity-0 transition-colors duration-300 hover:text-white"
+        href={agenda.cue.href}
+        className="label group flex flex-col items-center gap-3 text-muted opacity-0 transition-colors duration-300 hover:text-fg"
       >
-        {agenda.cue}
+        {agenda.cue.label}
         <span data-agenda-arrow className="text-base" aria-hidden="true">
           ↓
         </span>

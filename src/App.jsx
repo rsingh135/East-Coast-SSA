@@ -12,6 +12,7 @@ import { Register } from './components/Register'
 import { Faq } from './components/Faq'
 import { Gallery } from './components/Gallery'
 import { Footer } from './components/Footer'
+import { visibility } from './content/conference'
 
 export default function App() {
   const reducedMotion = useReducedMotion()
@@ -27,7 +28,7 @@ export default function App() {
       <main>
         <Hero />
         <AgendaBlock />
-        <Speakers />
+        {visibility.speakers && <Speakers />}
         <Schedule />
         <Partners />
         <Register />

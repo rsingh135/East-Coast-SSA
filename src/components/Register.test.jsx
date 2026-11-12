@@ -14,7 +14,7 @@ function mockReducedMotion(reduce) {
   }))
 }
 
-const LIVE_URL = 'https://lu.ma/east-coast-ssa'
+const LIVE_URL = 'https://lu.ma/silc'
 
 describe('Register', () => {
   const originalMatchMedia = window.matchMedia
